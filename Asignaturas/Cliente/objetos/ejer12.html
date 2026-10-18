@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let titulo = "TAREA 03";
+    let form = document.createElement("form");
+    let nombre = "";
+    let dia = 0;
+    let mes =0;
+    let anyo = 0;
+
+
+    tit(titulo);
+    formulario(form);
+    
+    
+    
+    
+    
+    
+    function tit(titulo) {
+        let h1 = document.createElement ("h1");
+        h1.textContent= titulo;
+        document.body.appendChild(h1);
+    }
+    
+    function formulario(form){
+        let br = document.createElement("br");
+        
+        document.body.appendChild(form);
+        
+        let input1 = document.createElement("input");
+        input1.type= "text";
+        input1.name = "usuario";
+        input1.placeholder = "Escribe tu nombre";
+        form.appendChild(input1);
+        form.appendChild(br);
+        
+        let input2 = document.createElement("input");
+        input2.type = "number";
+        input2.name = "dia";
+        input2.placeholder = "Introduce tu día de nacimiento";
+        form.appendChild(input2);
+
+        let input3 = document.createElement("input");
+        input3.type ="number";
+        input3.name ="mes";
+        input3.placeholder ="Escribe tu mes de nacimiento";
+        form.appendChild(input3);
+
+        let br2 = document.createElement("br");
+
+        let input4 = document.createElement("input");
+        input4.type ="number";
+        input4.name ="anyo";
+        input4.placeholder ="Escribe tu año de nacimiento";
+        form.appendChild(input4);
+        form.appendChild(br2);
+
+        let boton = document.createElement("button");
+        boton.type ="submit";
+        boton.name = "boton";
+        boton.value = "enviar";
+        boton.textContent = "enviar"
+        form.appendChild(boton);
+
+        form.addEventListener("submit",function(event){
+            event.preventDefault();
+
+            nombre =form.elements["usuario"].value;
+            dia = parseInt(form.elements["dia"].value);
+            mes = parseInt(form.elements["mes"].value);
+            anyo = parseInt(form.elements["anyo"].value);
+
+            mostrar(nombre,dia,mes,anyo);
+
+        });
+
+    }
+
+    function mostrar(nombre,dia,mes,anyo){
+    let viejo = document.getElementById("resultado");
+    if (viejo) viejo.remove();
+
+    let div = document.createElement("div");
+    div.id = "resultado";
+
+    function addLinea(texto) {
+        let p = document.createElement("p");
+        p.textContent = texto;
+        div.appendChild(p);
+    }
+
+    addLinea(`Buenos días ${nombre}`);
+
+    addLinea(`Tu nombre tiene ${nombre.length} caracteres, incluidos espacios.`);
+
+    let primeraA = nombre.toLowerCase().indexOf("a");
+    let textoPrimeraA = (primeraA !== -1) ? primeraA + 1 : "no hay A";
+
+    let ultimaA = nombre.toLowerCase().lastIndexOf("a");
+    let textoUltimaA = (ultimaA !== -1) ? ultimaA + 1 : "no hay A";
+
+    addLinea(`La primera letra A de tu nombre está en la posición: ${textoPrimeraA}`);
+    addLinea(`La última letra A de tu nombre está en la posición: ${textoUltimaA}`);
+
+    let nombreMenosTres = nombre.substring(3);
+    addLinea(`Tu nombre menos las 3 primeras letras es: ${nombreMenosTres}`);
+
+    let nombreMayus = nombre.toUpperCase();
+    addLinea(`Tu nombre todo en mayúsculas es: ${nombreMayus}`);
+
+    let hoy = new Date();
+    let edad = hoy.getFullYear() - anyo;
+    let mesActual = hoy.getMonth() + 1;
+    let diaActual = hoy.getDate();
+
+    if (mesActual < mes || (mesActual === mes && diaActual < dia)) {
+        edad--;
+    }
+
+    addLinea(`Tu edad es: ${edad} años.`);
+
+    addLinea(`Naciste un feliz ${dia} del mes ${mes} del año ${anyo}.`);
+
+    let cos = Math.cos(180);
+    addLinea(`El coseno de 180 es: ${cos}`);
+
+    let mayor = Math.max(34,67,23,75,35,19);
+    addLinea(`El número mayor de (34,67,23,75,35,19) es: ${mayor}`);
+
+    let azar = Math.random();
+    addLinea(`Ejemplo de número al azar: ${azar}`);
+
+    document.body.appendChild(div);
+}
+
+</script>
+</html>
